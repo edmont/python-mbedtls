@@ -33,7 +33,6 @@ mkdir -p "$src"
 curl -O "$url"
 tar xzf "$filename" -C "$src" --strip-components 1
 
-mkdir -p "$destdir"
 cd "$src"
 uname -s
 if [ "$(uname -s)" == "Linux" ]; then
@@ -45,7 +44,10 @@ fi
 mkdir build
 cd build
 
-CFLAGS="-DMBEDTLS_ARIA_C=ON" \
+CFLAGS+=" -DMBEDTLS_ARIA_C=ON"
+CFLAGS+=" -DMBEDTLS_DEPRECATED_REMOVED"
+
+CFLAGS=$CFLAGS \
 SHARED="ON" \
 make -C .. -j lib
 make -C .. -j install
