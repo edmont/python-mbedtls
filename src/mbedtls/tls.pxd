@@ -332,7 +332,10 @@ cdef extern from "mbedtls/ssl.h" nogil:
     int mbedtls_ssl_set_hostname(
         mbedtls_ssl_context *ssl,
         const char *hostname)
-    # mbedtls_ssl_set_hs_ecjpake_password
+    int mbedtls_ssl_set_hs_ecjpake_password(
+        mbedtls_ssl_context *ssl,
+        const unsigned char *pw,
+        size_t pw_len)
     # mbedtls_ssl_set_hs_own_cert
     # mbedtls_ssl_set_hs_ca_chain
     # mbedtls_ssl_set_hs_authmode

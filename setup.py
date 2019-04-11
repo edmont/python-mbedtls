@@ -5,6 +5,7 @@ from setuptools import setup, Extension, find_packages
 version = "0.16.0"
 download_url = "https://github.com/Synss/python-mbedtls/tarball/%s" % version
 
+configs = os.path.join(os.path.dirname(os.path.realpath(__file__)), "configs")
 
 if "--with-coverage" in sys.argv:
     sys.argv.remove("--with-coverage")
@@ -56,6 +57,8 @@ def extensions(coverage=False):
                     ("CYTHON_TRACE", "1"),
                     ("CYTHON_TRACE_NOGIL", "1")
                 ] if coverage else [],
+                extra_compile_args=["-I%s" % configs,
+                    "-DMBEDTLS_USER_CONFIG_FILE=<config-thread.h>"]
             )
             extension.cython_directives = {"language_level": 3}
             if coverage:
